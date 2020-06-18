@@ -1,0 +1,34 @@
+name: Build
+on: [push]
+
+jobs:
+  setup:
+    name: Setup environment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+  build:
+    name: Run Robot Tests
+    needs: [setup]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Robot e2e in Docker
+        run: ./run-in-docker.sh
+     - uses: actions/upload-artifact@v1
+     if: always()
+     with:
+       name: robot-results
+       path: reports
+     - name: Notify on Build Failure
+       if: failure()
+       uses: rtCamp/action-slack-notify@v2.0.0
+       env:
+         SLACK_MESSAGE: ":alert: Robot testing failed on commit ${{ github.sha }} :alert:"
+         SLACK_COLOR: "#efefef"
