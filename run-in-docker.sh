@@ -3,8 +3,8 @@
 set -euxo pipefail
 
 # Clean previous test results
-sudo rm -rf reports/
-mkdir -m 777 reports
+#sudo rm -rf reports/
+#mkdir -m 777 reports
 
 GID=`id -g`
 
