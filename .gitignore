@@ -200,9 +200,10 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
-web/results
+results
 .metadata/
 log.html
 output.xml
 report.html
 venv/
+reports
