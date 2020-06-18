@@ -21,14 +21,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run Robot e2e in Docker
         run: ./run-in-docker.sh
-     - uses: actions/upload-artifact@v1
-     if: always()
-     with:
-       name: robot-results
-       path: reports
-     - name: Notify on Build Failure
-       if: failure()
-       uses: rtCamp/action-slack-notify@v2.0.0
-       env:
-         SLACK_MESSAGE: ":alert: Robot testing failed on commit ${{ github.sha }} :alert:"
-         SLACK_COLOR: "#efefef"
+      - uses: actions/upload-artifact@v1
+      if: always()
+      with:
+        name: robot-results
+        path: reports
+      - name: Notify on Build Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2.0.0
+        env:
+          SLACK_MESSAGE: ":alert: Robot testing failed on commit ${{ github.sha }} :alert:"
+          SLACK_COLOR: "#efefef"
